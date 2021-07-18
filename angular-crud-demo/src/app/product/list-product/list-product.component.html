@@ -1,1 +1,27 @@
-<p>list-product works!</p>
+<h1>Product list</h1>
+<table>
+  <tr>
+    <th>#</th>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Brand</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <tr *ngFor="let product of products; index as i">
+    <td>{{i+1}}</td>
+    <td>{{product.id}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.brand}}</td>
+    <td><button (click)="toggleEditForm(product.id)">Edit</button></td>
+    <td><button (click)="deleteProductById(product.id)">Delete</button></td>
+    <div *ngIf="editFormIsShown === product.id">
+      <app-edit-product [product]="product"></app-edit-product>
+    </div>
+  </tr>
+</table><br>
+
+<button (click)="toggleCreateForm()">Create new product</button>
+<div *ngIf="createFormIsShown === true">
+  <app-create-product [products]="products"></app-create-product>
+</div>

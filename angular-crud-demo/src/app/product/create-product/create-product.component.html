@@ -1,1 +1,13 @@
-<p>create-product works!</p>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Brand</th>
+  </tr>
+  <tr>
+    <td><input type="number" [(ngModel)]="newProduct.id"></td>
+    <td><input type="text" [(ngModel)]="newProduct.name"></td>
+    <td><input type="text" [(ngModel)]="newProduct.brand"></td>
+  </tr>
+</table>
+<button (click)="addNewProduct()">Submit</button><br>
