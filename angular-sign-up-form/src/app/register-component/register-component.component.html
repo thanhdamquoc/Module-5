@@ -1,0 +1,13 @@
+<input type="text" id="name" name="name" class="form-control"
+       required minlength="4" maxlength="10" appForbiddenName="bobby"
+       [(ngModel)]="username" #name="ngModel" style="float: left">
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)"
+     class="alert" style="float: left">
+  <div *ngIf="name.errors?.required">
+    Name is required.
+  </div>
+  <div *ngIf="name.errors?.minlength">
+    Name must be at least 4 characters long.
+  </div>
+</div>

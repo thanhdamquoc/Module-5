@@ -1,0 +1,4 @@
+<div *ngFor="let rating of ratings" class="block" (click)="giveRating(rating.value)"
+     [style.background-color]='rating.color'>
+  {{rating.value}}
+</div>

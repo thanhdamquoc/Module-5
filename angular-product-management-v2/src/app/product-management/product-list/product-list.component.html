@@ -1,0 +1,24 @@
+<h1>Product List</h1>
+<a routerLink="/products/add" class="btn btn-primary">Add new product</a>
+<table class="table">
+  <tr>
+    <th scope="col"><span>#</span></th>
+    <th scope="col"><span>ID</span></th>
+    <th scope="col"><span>Name</span></th>
+    <th scope="col"><span>Category</span></th>
+    <th scope="col"><span>Price</span></th>
+    <th scope="col"><span>Description</span></th>
+    <th scope="col"><span>Details</span></th>
+    <th scope="col"><span>Delete</span></th>
+  </tr>
+  <tr *ngFor="let product of products; index as i">
+    <th scope="row"><span>{{i + 1}}</span></th>
+    <td><span>{{product.id}}</span></td>
+    <td><span>{{product.name}}</span></td>
+    <td><span>{{product.category.name}}</span></td>
+    <td><span>{{product.price}}</span></td>
+    <td><span>{{product.description}}</span></td>
+    <td><a routerLink="/products/{{product.id}}" class="btn btn-primary">Details</a></td>
+    <td><button class="btn btn-danger" (click)="deleteById(product.id)">Delete</button></td>
+  </tr>
+</table>

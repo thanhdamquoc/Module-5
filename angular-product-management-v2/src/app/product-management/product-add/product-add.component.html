@@ -1,0 +1,37 @@
+<h1>Add new product</h1>
+<form #productForm="ngForm" (ngSubmit)="addProduct(productForm)">
+  <table>
+    <tr>
+      <th>Name</th>
+      <td><input type="text" name="name" #name="ngModel" [(ngModel)]="product.name" required minlength="4"></td>
+    </tr>
+    <tr>
+      <th>Category</th>
+      <td>
+        <select name="categoryId" [(ngModel)]="product.category.id">
+          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>Price</th>
+      <td><input type="text" name="price" [(ngModel)]="product.price"></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><input type="text" name="description" [(ngModel)]="product.description"></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><input type="submit" value="Submit"></td>
+    </tr>
+  </table>
+</form>
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+  <div *ngIf="name.errors?.required">
+    Name is required.
+  </div>
+  <div *ngIf="name.errors?.minlength">
+    Name must be at least 4 characters long.
+  </div>
+</div>
