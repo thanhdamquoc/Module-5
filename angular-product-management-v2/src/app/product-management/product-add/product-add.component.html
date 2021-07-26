@@ -6,6 +6,13 @@
       <td><input type="text" name="name" #name="ngModel" [(ngModel)]="product.name" required minlength="4"></td>
     </tr>
     <tr>
+      <th>Image</th>
+      <td>
+        <img *ngIf="imageUrl" [src]="imageUrl" [alt]="product.name" class="product-image"><br>
+        <input type="file" (change)="previewImage($event)">
+      </td>
+    </tr>
+    <tr>
       <th>Category</th>
       <td>
         <select name="categoryId" [(ngModel)]="product.category.id">

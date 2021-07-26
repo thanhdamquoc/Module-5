@@ -15,15 +15,15 @@ export class ProductService {
   }
 
   getAll(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(`${API_URL}/products`);
+    return this.httpClient.get<Product[]>(`${API_URL}products`);
   }
 
   getById(id: number): Observable<Product> {
-    return this.httpClient.get<Product>(`${API_URL}/products/${id}`);
+    return this.httpClient.get<Product>(`${API_URL}products/${id}`);
   }
 
   add(product: Product): Observable<Product> {
-    return this.httpClient.post(`${API_URL}/products`, product);
+    return this.httpClient.post(`${API_URL}products`, product);
   }
 
   update(id: number, product: Product): Observable<Product> {
@@ -31,6 +31,6 @@ export class ProductService {
   }
 
   deleteById(id: number): Observable<Product> {
-    return this.httpClient.delete(`${API_URL}/products/${id}`);
+    return this.httpClient.delete(`${API_URL}products/${id}`);
   }
 }

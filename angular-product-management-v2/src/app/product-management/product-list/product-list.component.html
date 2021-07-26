@@ -5,6 +5,7 @@
     <th scope="col"><span>#</span></th>
     <th scope="col"><span>ID</span></th>
     <th scope="col"><span>Name</span></th>
+    <th scope="col"><span>Image</span></th>
     <th scope="col"><span>Category</span></th>
     <th scope="col"><span>Price</span></th>
     <th scope="col"><span>Description</span></th>
@@ -15,6 +16,7 @@
     <th scope="row"><span>{{i + 1}}</span></th>
     <td><span>{{product.id}}</span></td>
     <td><span>{{product.name}}</span></td>
+    <td><img [src]="product.image" [alt]="product.name" class="product-image"></td>
     <td><span>{{product.category.name}}</span></td>
     <td><span>{{product.price}}</span></td>
     <td><span>{{product.description}}</span></td>
