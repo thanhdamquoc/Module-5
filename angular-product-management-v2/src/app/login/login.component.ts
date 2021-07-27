@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AuthenticationService} from '../service/authentication/authentication.service';
 import {Router} from '@angular/router';
+import {ToastService} from '../service/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private authenticationService: AuthenticationService,
-              private router: Router) {
+              private router: Router,
+              private toastService: ToastService) {
   }
 
   ngOnInit() {
@@ -23,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authenticationService.login(this.loginForm.get('username').value, this.loginForm.get('password').value).subscribe(() => {
-      alert('Login successfully');
+      this.toastService.onSuccess('Login successfully');
       this.router.navigateByUrl('/products');
     });
   }

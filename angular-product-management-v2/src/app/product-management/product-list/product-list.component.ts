@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from '../../model/product';
 import {ProductService} from '../../service/product/product.service';
+import {ToastService} from '../../service/toast/toast.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,7 +11,8 @@ import {ProductService} from '../../service/product/product.service';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+              private toastService: ToastService) {
   }
 
   ngOnInit() {
@@ -24,7 +26,10 @@ export class ProductListComponent implements OnInit {
   deleteById(id: number) {
     const isSureAboutDelete = confirm('Are you sure?');
     if (isSureAboutDelete) {
-      this.productService.deleteById(id).subscribe(() => this.load());
+      this.productService.deleteById(id).subscribe(() => {
+        this.load();
+        this.toastService.onSuccess('Product deleted');
+      });
     }
   }
 }

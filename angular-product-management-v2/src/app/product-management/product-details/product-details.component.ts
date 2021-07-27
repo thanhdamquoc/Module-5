@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
+import {ToastService} from '../../service/toast/toast.service';
 
 @Component({
   selector: 'app-product-details',
@@ -26,7 +27,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private productService: ProductService,
               private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              private toastService: ToastService) {
   }
 
   ngOnInit() {
@@ -49,12 +51,12 @@ export class ProductDetailsComponent implements OnInit {
       this.product.image = this.imageUrl;
       this.productService.update(this.productId, this.product).subscribe(product => {
         this.load();
-        alert(product.name + ' updated');
+        this.toastService.onSuccess(product.name + ' updated');
       });
     }
   }
 
-  previewImage(event: Event) {
+  previewImage(event) {
     if (event.target.files && event.target.files[0]) {
       const selectedImage = event.target.files[0];
       // upload file to storage

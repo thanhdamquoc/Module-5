@@ -5,6 +5,7 @@ import {CategoryService} from '../../service/category/category.service';
 import {Category} from '../../model/category';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {ToastService} from '../../service/toast/toast.service';
 
 @Component({
   selector: 'app-product-add',
@@ -18,7 +19,8 @@ export class ProductAddComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private categoryService: CategoryService,
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              private toastService: ToastService) {
   }
 
   ngOnInit() {
@@ -38,13 +40,13 @@ export class ProductAddComponent implements OnInit {
     if (productForm.valid) {
       this.product.image = this.imageUrl;
       this.productService.add(this.product).subscribe(() => {
-        alert('product added');
+        this.toastService.onSuccess('product added');
         this.load();
       });
     }
   }
 
-  previewImage(event: Event) {
+  previewImage(event) {
     if (event.target.files && event.target.files[0]) {
       const selectedImage = event.target.files[0];
       // upload file to storage
