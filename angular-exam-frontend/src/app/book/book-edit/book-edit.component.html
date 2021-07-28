@@ -1,0 +1,26 @@
+<h1>Book Edit</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <td>{{book.id}}</td>
+  </tr>
+  <tr>
+    <th>Title</th>
+    <td><input type="text" [(ngModel)]="book.title"></td>
+  </tr>
+  <tr>
+    <th>Author</th>
+    <td><input type="text" [(ngModel)]="book.author"></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td><textarea cols="100" rows="5" type="text" [(ngModel)]="book.description"></textarea></td>
+  </tr>
+  <tr>
+    <th></th>
+    <td>
+      <button class="btn btn-primary" (click)="updateBook()">Update</button>
+      <button class="btn btn-danger" (click)="deleteBook()">Remove</button>
+    </td>
+  </tr>
+</table>

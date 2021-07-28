@@ -1,0 +1,21 @@
+<h1>Book Details</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <td><input type="text" [(ngModel)]="book.title"></td>
+  </tr>
+  <tr>
+    <th>Author</th>
+    <td><input type="text" [(ngModel)]="book.author"></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td><input type="text" [(ngModel)]="book.description"></td>
+  </tr>
+  <tr>
+    <th></th>
+    <td><button class="btn btn-primary" (click)="addNewBook()">Add new book</button></td>
+  </tr>
+</table>
+
