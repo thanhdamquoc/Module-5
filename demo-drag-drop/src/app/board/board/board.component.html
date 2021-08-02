@@ -1,22 +1,31 @@
-<div
-  cdkDropList
-  [cdkDropListData]="cards"
-  (cdkDropListDropped)="drop1($event)">
-  <div cdkDropListGroup>
-    <div class="example-container" *ngFor="let column of cards; index as i" cdkDrag>
-      <h2>{{this.columns[i].title}}</h2>
-      <div
-        cdkDropList
-        [cdkDropListData]="column"
-        class="example-list"
-        (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let card of column" cdkDrag>
-          {{card.title}}<br>
-          {{card.content}}
+<div class="root">
+  <div class="board">
+    <div class="board-wrapper">
+      <div class="board-columns">
+
+        <div cdkDropList
+             cdkDropListGroup
+             cdkDropListOrientation="horizontal" class="board-columns"
+             (cdkDropListDropped)="dropGrid($event)">
+          <div
+            cdkDragLockAxis="x" class="board-column"
+            *ngFor="let column of board.columns" cdkDrag>
+            <div class="column-title" cdkDragHandle>
+              {{ column.title }}
+            </div>
+            <div class="tasks-container"
+                 id="{{column.id}}"
+                 cdkDropList
+                 [cdkDropListData]="column.cards"
+                 (cdkDropListDropped)="drop($event)">
+              <div class="task" *ngFor="let item of column.cards" cdkDrag>
+                {{ item.title }}<br>
+                {{item.content}}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-

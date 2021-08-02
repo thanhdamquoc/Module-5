@@ -18,4 +18,12 @@ export class ColumnService {
   update(id: number, column: Column): Observable<Column> {
     return this.httpClient.put<Column>(`${API_URL}columns/${id}`, column);
   }
+
+  updateAll(columns: Column[]): Observable<Column[]> {
+    return this.httpClient.put<Column[]>(`${API_URL}columns`, columns);
+  }
+
+  deleteAllById(ids: number[]): Observable<Column[]> {
+    return this.httpClient.post<Column[]>(`${API_URL}columns/delete`, ids);
+  }
 }

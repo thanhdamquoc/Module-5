@@ -72,49 +72,11 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  drop(event: CdkDragDrop<Card[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
-    this.saveArrayToLocalBoard();
-    this.updateRemoteBoard();
+  public dropGrid(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.board.columns, event.previousIndex, event.currentIndex);
   }
 
-  saveArrayToLocalBoard() {
-    let columnCount = this.cards.length;
-    this.board.columns = new Array(columnCount);
-    for (let i = 0; i < columnCount; i++) {
-      this.board.columns[i] = this.columns[i];
-      let rowCount = this.cards[i].length;
-      this.board.columns[i].cards = new Array(rowCount)
-      for (let j = 0; j < rowCount; j++) {
-        let card = this.cards[i][j];
-        card.position = j;
-        this.board.columns[i].cards[j] = card;
-      }
-    }
-    console.log(this.board);
-  }
-
-  private updateRemoteBoard() {
-    for (let column of this.board.columns) {
-      for (let card of column.cards) {
-        this.cardService.update(card.id, card).subscribe(card => {
-          console.log(card);
-        });
-      }
-    }
-    for (let column of this.board.columns) {
-      this.columnService.update(column.id, column).subscribe(column => console.log(column));
-    }
-  }
-
-  drop1(event: CdkDragDrop<Card[][], any>) {
+  public drop(event: CdkDragDrop<Card[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -124,4 +86,80 @@ export class BoardComponent implements OnInit {
         event.currentIndex);
     }
   }
+
+
+  // dropCard(event: CdkDragDrop<Card[]>, column: Card[]) {
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //   } else {
+  //     transferArrayItem(event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex);
+  //   }
+  //   console.log(event)
+  //   console.log(column);
+  //   this.saveArrayToLocalBoard();
+  //   this.updateRemoteBoard();
+  // }
+  //
+  // saveArrayToLocalBoard() {
+  //   let columnCount = this.cards.length;
+  //   this.board.columns = new Array(columnCount);
+  //   for (let i = 0; i < columnCount; i++) {
+  //     this.board.columns[i] = this.columns[i];
+  //     let rowCount = this.cards[i].length;
+  //     this.board.columns[i].cards = new Array(rowCount)
+  //     for (let j = 0; j < rowCount; j++) {
+  //       let card = this.cards[i][j];
+  //       card.position = j;
+  //       this.board.columns[i].cards[j] = card;
+  //     }
+  //   }
+  //   console.log(this.board);
+  // }
+  //
+  // private updateRemoteBoard() {
+  //   let cardDto: Card[] = [];
+  //   let columnIdDto: number[] = [];
+  //   let columnDto: Column[] = [];
+  //   for (let column of this.board.columns) {
+  //     columnIdDto.push(column.id);
+  //     columnDto.push(column);
+  //     for (let card of column.cards) {
+  //       cardDto.push(card);
+  //     }
+  //   }
+  //   console.log(cardDto);
+  //   console.log(columnDto);
+  //   this.cardService.updateAll(cardDto).subscribe(cards => {
+  //     console.log('updating cards');
+  //     console.log(cards);
+  //     this.columnService.deleteAllById(columnIdDto).subscribe(columns => {
+  //       console.log('deleting columns');
+  //       console.log(columns);
+  //       this.columnService.updateAll(columnDto).subscribe(columns => {
+  //         console.log('updating columns');
+  //         console.log(columns);
+  //       })
+  //     }, error => {
+  //       console.log(error);
+  //       this.columnService.updateAll(columnDto).subscribe(columns => {
+  //         console.log('updating columns');
+  //         console.log(columns);
+  //       })
+  //     })
+  //   })
+  // }
+  //
+  // dropColumn(event: CdkDragDrop<Card[][], any>) {
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //   } else {
+  //     transferArrayItem(event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex);
+  //   }
+  // }
 }
