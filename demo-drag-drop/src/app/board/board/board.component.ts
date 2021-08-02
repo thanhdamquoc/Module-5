@@ -109,8 +109,18 @@ export class BoardComponent implements OnInit {
         cardsDto.push(card);
       }
     }
-    this.cardService.updateAll(cardsDto).subscribe();
-    this.columnService.update(this.previousColumn.id, this.previousColumn).subscribe(() => {
+    this.cardService.updateAll(cardsDto).subscribe(() => {
+      if (this.previousColumn.id != -1) {
+        this.columnService.update(this.previousColumn.id, this.previousColumn).subscribe(() => {
+            this.columnService.updateAll(columnsDto).subscribe(() => {
+                this.boardService.updateBoard(this.boardId, this.board).subscribe(() => {
+                  this.renderPage();
+                })
+              }
+            )
+          }
+        )
+      } else {
         this.columnService.updateAll(columnsDto).subscribe(() => {
             this.boardService.updateBoard(this.boardId, this.board).subscribe(() => {
               this.renderPage();
@@ -118,6 +128,7 @@ export class BoardComponent implements OnInit {
           }
         )
       }
-    )
+    });
+
   }
 }
