@@ -20,7 +20,7 @@ export class BoardService {
   }
 
   getBoardById(id: number): Observable<Board> {
-    return this.httpClient.get<Board>(`${API_URL}boards/${id}`);
+    return this.httpClient.get<Board>(`${API_URL}boards/${id}/sorted`);
   }
 
   updateBoard(id: number, board: Board): Observable<Board> {

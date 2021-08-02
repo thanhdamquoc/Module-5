@@ -4,6 +4,7 @@ import {Board} from "../../model/board";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Column} from "../../model/column";
+import {Card} from "../../model/card";
 
 const API_URL = `${environment.apiUrl}`;
 

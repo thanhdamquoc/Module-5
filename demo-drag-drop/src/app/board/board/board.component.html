@@ -6,20 +6,20 @@
         <div cdkDropList
              cdkDropListGroup
              cdkDropListOrientation="horizontal" class="board-columns"
-             (cdkDropListDropped)="dropGrid($event)">
+             (cdkDropListDropped)="dropColumn($event)">
           <div
             cdkDragLockAxis="x" class="board-column"
             *ngFor="let column of board.columns" cdkDrag>
             <div class="column-title" cdkDragHandle>
-              {{ column.title }}
+              {{ column.title }} - {{column.position}}
             </div>
             <div class="tasks-container"
                  id="{{column.id}}"
                  cdkDropList
                  [cdkDropListData]="column.cards"
-                 (cdkDropListDropped)="drop($event)">
+                 (cdkDropListDropped)="dropCard($event)">
               <div class="task" *ngFor="let item of column.cards" cdkDrag>
-                {{ item.title }}<br>
+                {{ item.title }} - {{item.position}}<br>
                 {{item.content}}
               </div>
             </div>

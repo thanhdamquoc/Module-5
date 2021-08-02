@@ -23,8 +23,12 @@ export class BoardComponent implements OnInit {
     title: '',
     columns: []
   };
-  columns: Column[] = [];
-  cards: Card[][] = [];
+  previousColumn: Column = {
+    cards: [],
+    id: -1,
+    position: -1,
+    title: ""
+  };
 
   constructor(private activatedRoute: ActivatedRoute,
               private boardService: BoardService,
@@ -50,33 +54,16 @@ export class BoardComponent implements OnInit {
   getBoard() {
     this.boardService.getBoardById(this.boardId).subscribe(board => {
       this.board = board;
-      this.loadBoardToArray();
+      console.log(this.board);
     });
   }
 
-  loadBoardToArray() {
-    console.log(this.board);
-    let columnCount = this.board.columns.length;
-    this.cards = new Array(columnCount);
-    for (let i = 0; i < columnCount; i++) {
-      let column = this.board.columns[i];
-      let columnPosition = column.position;
-      let rowCount = column.cards.length;
-      this.columns[columnPosition] = column;
-      this.cards[columnPosition] = new Array(rowCount);
-      for (let j = 0; j < rowCount; j++) {
-        let card = column.cards[j];
-        let rowPosition = card.position;
-        this.cards[columnPosition][rowPosition] = card;
-      }
-    }
-  }
-
-  public dropGrid(event: CdkDragDrop<string[]>): void {
+  public dropColumn(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.board.columns, event.previousIndex, event.currentIndex);
+    this.saveChanges();
   }
 
-  public drop(event: CdkDragDrop<Card[]>): void {
+  public dropCard(event: CdkDragDrop<Card[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -85,81 +72,52 @@ export class BoardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
+    //assign value to previous column
+    let previousColumnId = parseInt(event.previousContainer.id);
+    for (let column of this.board.columns) {
+      if (column.id == previousColumnId) {
+        this.previousColumn = column;
+        break;
+      }
+    }
+    this.saveChanges()
   }
 
+  private saveChanges() {
+    this.updatePositions();
+    this.updateRemoteBoard();
+  }
 
-  // dropCard(event: CdkDragDrop<Card[]>, column: Card[]) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //   } else {
-  //     transferArrayItem(event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex);
-  //   }
-  //   console.log(event)
-  //   console.log(column);
-  //   this.saveArrayToLocalBoard();
-  //   this.updateRemoteBoard();
-  // }
-  //
-  // saveArrayToLocalBoard() {
-  //   let columnCount = this.cards.length;
-  //   this.board.columns = new Array(columnCount);
-  //   for (let i = 0; i < columnCount; i++) {
-  //     this.board.columns[i] = this.columns[i];
-  //     let rowCount = this.cards[i].length;
-  //     this.board.columns[i].cards = new Array(rowCount)
-  //     for (let j = 0; j < rowCount; j++) {
-  //       let card = this.cards[i][j];
-  //       card.position = j;
-  //       this.board.columns[i].cards[j] = card;
-  //     }
-  //   }
-  //   console.log(this.board);
-  // }
-  //
-  // private updateRemoteBoard() {
-  //   let cardDto: Card[] = [];
-  //   let columnIdDto: number[] = [];
-  //   let columnDto: Column[] = [];
-  //   for (let column of this.board.columns) {
-  //     columnIdDto.push(column.id);
-  //     columnDto.push(column);
-  //     for (let card of column.cards) {
-  //       cardDto.push(card);
-  //     }
-  //   }
-  //   console.log(cardDto);
-  //   console.log(columnDto);
-  //   this.cardService.updateAll(cardDto).subscribe(cards => {
-  //     console.log('updating cards');
-  //     console.log(cards);
-  //     this.columnService.deleteAllById(columnIdDto).subscribe(columns => {
-  //       console.log('deleting columns');
-  //       console.log(columns);
-  //       this.columnService.updateAll(columnDto).subscribe(columns => {
-  //         console.log('updating columns');
-  //         console.log(columns);
-  //       })
-  //     }, error => {
-  //       console.log(error);
-  //       this.columnService.updateAll(columnDto).subscribe(columns => {
-  //         console.log('updating columns');
-  //         console.log(columns);
-  //       })
-  //     })
-  //   })
-  // }
-  //
-  // dropColumn(event: CdkDragDrop<Card[][], any>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //   } else {
-  //     transferArrayItem(event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex);
-  //   }
-  // }
+  private updatePositions() {
+    let columns = this.board.columns;
+    for (let i = 0; i < columns.length; i++) {
+      let column = columns[i];
+      column.position = i;
+      let cards = column.cards;
+      for (let j = 0; j < cards.length; j++) {
+        cards[j].position = j;
+      }
+    }
+  }
+
+  private updateRemoteBoard() {
+    let cardsDto: Card[] = [];
+    let columnsDto: Column[] = [];
+    for (let column of this.board.columns) {
+      columnsDto.push(column);
+      for (let card of column.cards) {
+        cardsDto.push(card);
+      }
+    }
+    this.cardService.updateAll(cardsDto).subscribe();
+    this.columnService.update(this.previousColumn.id, this.previousColumn).subscribe(() => {
+        this.columnService.updateAll(columnsDto).subscribe(() => {
+            this.boardService.updateBoard(this.boardId, this.board).subscribe(() => {
+              this.renderPage();
+            })
+          }
+        )
+      }
+    )
+  }
 }
