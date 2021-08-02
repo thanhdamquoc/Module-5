@@ -6,6 +6,8 @@ import {BoardService} from "../../service/board/board.service";
 import {Board} from "../../model/board";
 import {Card} from "../../model/card";
 import {Column} from "../../model/column";
+import {ColumnService} from "../../service/column/column.service";
+import {CardService} from "../../service/card/card.service";
 
 @Component({
   selector: 'app-board',
@@ -14,23 +16,27 @@ import {Column} from "../../model/column";
 })
 export class BoardComponent implements OnInit {
 
+  boardId = -1;
   board: Board = {
     id: -1,
     owner: {},
     title: '',
     columns: []
   };
-
   columns: Column[] = [];
   cards: Card[][] = [];
 
-  boardId = -1;
-
   constructor(private activatedRoute: ActivatedRoute,
-              private boardService: BoardService) {
+              private boardService: BoardService,
+              private columnService: ColumnService,
+              private cardService: CardService) {
   }
 
   ngOnInit(): void {
+    this.renderPage();
+  }
+
+  renderPage() {
     this.getBoardIdByUrl();
   }
 
@@ -49,6 +55,7 @@ export class BoardComponent implements OnInit {
   }
 
   loadBoardToArray() {
+    console.log(this.board);
     let columnCount = this.board.columns.length;
     this.cards = new Array(columnCount);
     for (let i = 0; i < columnCount; i++) {
@@ -63,7 +70,6 @@ export class BoardComponent implements OnInit {
         this.cards[columnPosition][rowPosition] = card;
       }
     }
-    console.log(this.cards);
   }
 
   drop(event: CdkDragDrop<Card[]>) {
@@ -75,10 +81,11 @@ export class BoardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
-    this.saveArrayToBoard();
+    this.saveArrayToLocalBoard();
+    this.updateRemoteBoard();
   }
 
-  saveArrayToBoard() {
+  saveArrayToLocalBoard() {
     let columnCount = this.cards.length;
     this.board.columns = new Array(columnCount);
     for (let i = 0; i < columnCount; i++) {
@@ -92,5 +99,29 @@ export class BoardComponent implements OnInit {
       }
     }
     console.log(this.board);
+  }
+
+  private updateRemoteBoard() {
+    for (let column of this.board.columns) {
+      for (let card of column.cards) {
+        this.cardService.update(card.id, card).subscribe(card => {
+          console.log(card);
+        });
+      }
+    }
+    for (let column of this.board.columns) {
+      this.columnService.update(column.id, column).subscribe(column => console.log(column));
+    }
+  }
+
+  drop1(event: CdkDragDrop<Card[][], any>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
 }
