@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="056eb00a-b5db-4bd1-9cc1-4794fd4e32ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../demo-drag-drop/src/app/board/demo-trello/demo-trello.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../demo-drag-drop/src/app/board/demo-trello/demo-trello.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../demo-drag-drop/src/app/board/demo-trello/demo-trello.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../demo-drag-drop/src/app/board/demo-trello/demo-trello.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../demo-drag-drop/src/assets/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo-trello-template.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/demo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C0221H1-Angular_First" beforeDir="false" afterPath="$PROJECT_DIR$/../C0221H1-Angular_First" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular-calculator-app" beforeDir="false" afterPath="$PROJECT_DIR$/../angular-calculator-app" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular-change-font-size" beforeDir="false" afterPath="$PROJECT_DIR$/../angular-change-font-size" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular-color-picker-app" beforeDir="false" afterPath="$PROJECT_DIR$/../angular-color-picker-app" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular-exam-server" beforeDir="false" afterPath="$PROJECT_DIR$/../angular-exam-server" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular-show-pet-info" beforeDir="false" afterPath="$PROJECT_DIR$/../angular-show-pet-info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular-using-bootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/../angular-using-bootstrap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/src/app/board/board-list/board-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/src/app/board/board-list/board-list.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo-drag-drop/src/polyfills.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-drag-drop/src/polyfills.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1wAFrEc8FKCPX2pPdK5UKAt4JTg" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="056eb00a-b5db-4bd1-9cc1-4794fd4e32ad" name="Default Changelist" comment="" />
+      <created>1627893684827</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1627893684827</updated>
+      <workItem from="1627893686243" duration="767000" />
+      <workItem from="1627896467624" duration="681000" />
+      <workItem from="1627957479924" duration="1211000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

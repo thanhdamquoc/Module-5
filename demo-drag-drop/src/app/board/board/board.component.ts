@@ -29,6 +29,8 @@ export class BoardComponent implements OnInit {
     position: -1,
     title: ""
   };
+  cardsDto: Card[] = [];
+  columnsDto: Column[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private boardService: BoardService,
@@ -37,10 +39,6 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.renderPage();
-  }
-
-  renderPage() {
     this.getBoardIdByUrl();
   }
 
@@ -73,6 +71,12 @@ export class BoardComponent implements OnInit {
         event.currentIndex);
     }
     //assign value to previous column
+    this.setPreviousColumn(event);
+    this.saveChanges()
+  }
+
+
+  private setPreviousColumn(event: CdkDragDrop<Card[]>) {
     let previousColumnId = parseInt(event.previousContainer.id);
     for (let column of this.board.columns) {
       if (column.id == previousColumnId) {
@@ -80,12 +84,12 @@ export class BoardComponent implements OnInit {
         break;
       }
     }
-    this.saveChanges()
   }
 
   private saveChanges() {
     this.updatePositions();
-    this.updateRemoteBoard();
+    this.updateDto();
+    this.updateCards();
   }
 
   private updatePositions() {
@@ -100,35 +104,32 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  private updateRemoteBoard() {
-    let cardsDto: Card[] = [];
-    let columnsDto: Column[] = [];
+  private updateDto() {
     for (let column of this.board.columns) {
-      columnsDto.push(column);
+      this.columnsDto.push(column);
       for (let card of column.cards) {
-        cardsDto.push(card);
+        this.cardsDto.push(card);
       }
     }
-    this.cardService.updateAll(cardsDto).subscribe(() => {
-      if (this.previousColumn.id != -1) {
-        this.columnService.update(this.previousColumn.id, this.previousColumn).subscribe(() => {
-            this.columnService.updateAll(columnsDto).subscribe(() => {
-                this.boardService.updateBoard(this.boardId, this.board).subscribe(() => {
-                  this.renderPage();
-                })
-              }
-            )
-          }
-        )
-      } else {
-        this.columnService.updateAll(columnsDto).subscribe(() => {
-            this.boardService.updateBoard(this.boardId, this.board).subscribe(() => {
-              this.renderPage();
-            })
-          }
-        )
-      }
-    });
+  }
 
+  private updateCards() {
+    this.cardService.updateAll(this.cardsDto).subscribe(() => this.updatePreviousColumn())
+  }
+
+  private updatePreviousColumn() {
+    if (this.previousColumn.id != 1) {
+      this.columnService.update(this.previousColumn.id, this.previousColumn).subscribe(() => this.updateColumns())
+    } else {
+      this.updateColumns()
+    }
+  }
+
+  private updateColumns() {
+    this.columnService.updateAll(this.columnsDto).subscribe(() => this.updateBoard());
+  }
+
+  private updateBoard() {
+    this.boardService.updateBoard(this.boardId, this.board).subscribe(() => this.getBoard());
   }
 }
